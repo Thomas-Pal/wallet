@@ -3,5 +3,5 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/uk-digital-wallet-arch/', // 👈 repo name here
+  base: '/wallet/', // 👈 repo name here
 })

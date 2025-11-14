@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { User, Shield, Database, FileText, Wallet, Key, Building2, Heart, Car, Briefcase, Home, Scale, Smartphone, CheckCircle, Bell } from 'lucide-react';
 
 export default function UKDigitalWalletArchitecture() {

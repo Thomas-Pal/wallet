@@ -1,35 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import UKDigitalWalletArchitecture from './UKDigitalWalletArchitecture';
+import UKDigitalWalletCredentials from './UKDigitalWalletCredentials';
+import './App.css';
+
+type View = 'architecture' | 'credentials';
+
+const viewLabels: Record<View, string> = {
+  architecture: 'Wallet Architecture',
+  credentials: 'Wallet Credentials',
+};
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [activeView, setActiveView] = useState<View>('architecture');
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="min-h-screen bg-slate-950 text-white">
+      <div className="fixed top-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur border-b border-slate-800">
+        <div className="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-center gap-3">
+          {Object.entries(viewLabels).map(([key, label]) => {
+            const view = key as View;
+            const isActive = activeView === view;
+
+            return (
+              <button
+                key={view}
+                onClick={() => setActiveView(view)}
+                className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-400 focus-visible:ring-offset-slate-900 ${
+                  isActive
+                    ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30'
+                    : 'bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white'
+                }`}
+              >
+                {label}
+              </button>
+            );
+          })}
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+
+      <main className="pt-20">
+        {activeView === 'architecture' ? (
+          <UKDigitalWalletArchitecture />
+        ) : (
+          <UKDigitalWalletCredentials />
+        )}
+      </main>
+    </div>
+  );
 }
 
-export default App
+export default App;
